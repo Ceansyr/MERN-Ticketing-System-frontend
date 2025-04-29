@@ -1,9 +1,5 @@
-/* Landing Page Component Styles */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-/* Component-specific styles that complement HublyLanding.css */
-
-/* Header Component */
 .landing-nav-container {
   display: flex;
   align-items: center;
@@ -15,7 +11,6 @@
   margin-right: 0.5rem;
 }
 
-/* Hero Section Component with Background Images */
 .landing-hero-content {
   display: flex;
   flex-direction: row;
@@ -37,7 +32,6 @@
   height: 400px;
 }
 
-/* Profile notification with background image */
 .notification-bubble.profile-notification {
   position: absolute;
   top: -30px;
@@ -55,7 +49,6 @@
   border: none;
 }
 
-/* Main dashboard image with background */
 .dashboard-main-image.main-dashboard-img {
   position: relative;
   width: 100%;
@@ -70,7 +63,6 @@
   margin: 0;
 }
 
-/* Stats chart with background image */
 .stats-chart-container.stats-graph-img {
   position: absolute;
   bottom: -30px;
@@ -87,11 +79,16 @@
   margin: 0;
 }
 
-/* Remove box-shadow from other related classes */
 .notification-bubble {
   position: absolute;
   top: -30px;
   right: 20px;
+  background-color: white;
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   z-index: 10;
 }
 
@@ -105,6 +102,7 @@
   width: 100%;
   height: 100%;
   overflow: hidden;
+  border-radius: 8px;
 }
 
 .main-dashboard-img {
@@ -128,29 +126,9 @@
   border-radius: 8px;
 }
 
-/* Adjust notification bubble for better contrast against blue */
-.notification-bubble {
-  position: absolute;
-  top: -20px;
-  right: 20px;
-  background-color: white;
-  border-radius: 8px;
-  padding: 0.75rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  z-index: 10;
-}
-
 .notification-text {
   font-size: 0.875rem;
   font-weight: 500;
-}
-
-.dashboard-main-image {
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .dashboard-widgets {
@@ -208,7 +186,6 @@
   color: var(--dark-text);
 }
 
-/* Partners Section Component */
 .partner-logo {
   height: 32px;
   width: 120px;
@@ -243,17 +220,12 @@
   background-image: url('../images/Framer-logo.png');
 }
 
-.partner-logo:hover img {
-  opacity: 1;
-}
-/* Feature Section Styles */
 .feature-section {
   padding: 5rem 5%;
   background-color: white;
   overflow: hidden;
 }
 
-/* Header Styles */
 .feature-header {
   max-width: 800px;
   margin: 0 auto 4rem;
@@ -276,7 +248,6 @@
   margin: 0 auto;
 }
 
-/* Body Layout - Two Columns */
 .feature-body {
   display: flex;
   justify-content: space-between;
@@ -285,7 +256,6 @@
   gap: 2rem;
 }
 
-/* Left Column - Information */
 .feature-info {
   flex: 1;
   max-width: 50%;
@@ -331,7 +301,6 @@
   line-height: 1.5;
 }
 
-/* Right Column - Funnel Image */
 .feature-image {
   flex: 1;
   max-width: 50%;
@@ -344,7 +313,6 @@
   height: 100%;
 }
 
-/* Funnel Logos */
 .funnel-logos-container {
   position: absolute;
   top: 0;
@@ -362,7 +330,6 @@
   background-repeat: no-repeat;
 }
 
-/* Main Funnel */
 .feature-funnel {
   width: 100%;
   height: 400px;
@@ -373,7 +340,6 @@
   position: relative;
 }
 
-/* Funnel Stages */
 .funnel-stage {
   position: absolute;
   right: 0;
@@ -408,7 +374,6 @@
   top: 75%;
 }
 
-/* Pricing Section Component */
 .pricing-section {
   background-color: white;
   padding: 5rem 5%;
@@ -539,7 +504,6 @@
   background-color: var(--secondary-blue);
 }
 
-/* Footer Component Styles */
 .page-footer {
   background-color: white;
   padding: 4rem 5%;
@@ -622,9 +586,6 @@
   right: 5%;
   display: flex;
   gap: 1rem;
-}
-
-.footer-social-icons {
   width: 300px;
   height: 24px;
   background-image: url('../images/social-icons.png');
@@ -699,7 +660,6 @@
   border-width: 0;
 }
 
-/* Responsive Styles */
 @media (max-width: 992px) {
   .landing-hero-content {
     flex-direction: column;
@@ -727,20 +687,6 @@
     max-width: 500px;
     margin: 0 auto;
   }
-
-  .landing-hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  
-  .landing-hero-text {
-    text-align: center;
-    max-width: 100%;
-  }
-  
-  .landing-hero-buttons {
-    justify-content: center;
-  }
   
   .feature-funnel {
     flex-direction: column;
@@ -759,6 +705,26 @@
   .footer-links-container {
     flex-direction: column;
     gap: 2rem;
+  }
+}
+
+/* Chatbot compatibility styles */
+.landing-page {
+  position: relative;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  .chat-window {
+    width: 90%;
+    height: 80vh;
+    bottom: 80px;
+    right: 5%;
+  }
+  
+  .chat-popup {
+    width: 90%;
+    right: 5%;
   }
 }
 

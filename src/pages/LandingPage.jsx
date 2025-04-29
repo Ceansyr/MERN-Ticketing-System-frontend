@@ -7,6 +7,7 @@ import PartnersSection from "../components/landing/PartnersSection";
 import FeatureSection from "../components/landing/FeatureSection";
 import PricingSection from "../components/landing/PricingSection";
 import Footer from "../components/landing/Footer";
+import ChatBot from "../components/landing/ChatBot";
 
 function LandingPage() {
     return (
@@ -17,6 +18,7 @@ function LandingPage() {
             <FeatureSection />
             <PricingSection />
             <Footer />
+            <ChatBot />
         </div>
     );
 }

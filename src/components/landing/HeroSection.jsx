@@ -1,4 +1,5 @@
 import React from "react";
+import navigate from "../../utils/navigation";
 
 function HeroSection() {
   return (
@@ -10,7 +11,7 @@ function HeroSection() {
           <div className="landing-hero-buttons">
             <button 
               className="landing-btn-primary" 
-              onClick={() => window.location.href = "/signup"}
+              onClick={() => navigate("/signup")}
             >
               Get started
             </button>
@@ -22,13 +23,8 @@ function HeroSection() {
         
         <div className="landing-hero-image">
           <div className="dashboard-preview">
-            {/* Notification bubble - Profile tag with name and time */}
             <div className="notification-bubble profile-notification" aria-label="Jerry Cabroni joined Brainstorming"></div>
-            
-            {/* Main dashboard image with calendar */}
             <div className="dashboard-main-image main-dashboard-img" aria-label="Dashboard Preview"></div>
-            
-            {/* Stats chart/graph */}
             <div className="stats-chart-container stats-graph-img" aria-label="Sales Statistics"></div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import navigate from "../../utils/navigation";
 
 function Header() {
   return (
@@ -9,7 +10,7 @@ function Header() {
         <a href="/login" className="login-link">Login</a>
         <button 
           className="landing-btn-primary" 
-          onClick={() => window.location.href = "/signup"}
+          onClick={() => navigate("/signup")}
         >
           Sign Up
         </button>

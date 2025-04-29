@@ -3,7 +3,6 @@ import React from "react";
 function FeatureSection() {
   return (
     <section className="feature-section">
-      {/* Header Part */}
       <div className="feature-header">
         <h2 className="feature-title">At its core, Hubly is a robust CRM solution.</h2>
         <p className="feature-description">
@@ -11,9 +10,7 @@ function FeatureSection() {
         </p>
       </div>
 
-      {/* Body Part - Two Columns */}
       <div className="feature-body">
-        {/* Left Column - Information */}
         <div className="feature-info">
           <h3 className="info-title">MULTIPLE PLATFORMS TOGETHER!</h3>
           <p className="info-description">
@@ -37,15 +34,12 @@ function FeatureSection() {
           </div>
         </div>
         
-        {/* Right Column - Funnel Image */}
         <div className="feature-image">
           <div className="funnel-container">
-            {/* Social Media Logos on top of funnel */}
             <div className="funnel-logos-container">
               <div className="funnel-logos" aria-label="Platform logos"></div>
             </div>
             
-            {/* Main Funnel Graphic */}
             <div className="feature-funnel" aria-label="Sales funnel graphic">
             </div>
           </div>

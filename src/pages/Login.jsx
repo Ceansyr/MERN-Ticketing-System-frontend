@@ -7,7 +7,7 @@ import { login, storeToken } from '../api/authApi';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -25,7 +25,7 @@ const Login = () => {
     try {
       const data = await login(formData);
       storeToken(data.token);
-      navigate('/events');
+      navigate('/dashboard');
     } catch (err) {
       setError(err.message || 'An error occurred'); 
     }
@@ -39,15 +39,15 @@ const Login = () => {
         <div className="login-form">
           <div className="login-content">
             <div className='login-title'>
-              <h2>Sign in</h2>
+              <h2>Sign in to your Plexify</h2>
             </div>
             <ErrorMessage message={error} />
             <form onSubmit={handleSubmit}>
               <FormInput
-                id="username"
-                name="username"
-                placeholder="Username"
-                value={formData.username}
+                id="email"
+                name="email"
+                placeholder="email"
+                value={formData.email}
                 onChange={handleChange}
                 required={true}
               />
