@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import axios from "axios";
 import ChatPopup from "./chatbot/ChatPopup";
 import ChatWindow from "./chatbot/ChatWindow";
@@ -18,6 +18,51 @@ function ChatBot() {
     const [messages, setMessages] = useState([]);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [ticketCreated, setTicketCreated] = useState(false);
+    const [settings, setSettings] = useState({
+        headerColor: '#334758',
+        backgroundColor: '#FFFFFF',
+        welcomeMessages: [
+            'How can I help you?',
+            'Ask me anything!'
+        ],
+        missedChatTimer: {
+            minutes: 12,
+            seconds: 0
+        },
+        introductionForm: {
+            enabled: true,
+            nameField: true,
+            phoneField: true,
+            emailField: true,
+            buttonText: 'Thank You!'
+        }
+    });
+    
+    // Fetch chatbot settings on component mount
+    useEffect(() => {
+        const fetchSettings = async () => {
+            try {
+                // Try to get settings from localStorage first for faster loading
+                const cachedSettings = localStorage.getItem('chatbotSettings');
+                if (cachedSettings) {
+                    setSettings(JSON.parse(cachedSettings));
+                }
+                
+                // Then fetch the latest settings from the server
+                const response = await axios.get('http://localhost:5000/api/chatbot/settings/public');
+                if (response.data) {
+                    setSettings(response.data);
+                    // Cache the settings in localStorage
+                    localStorage.setItem('chatbotSettings', JSON.stringify(response.data));
+                }
+            } catch (error) {
+                console.error('Error fetching chatbot settings:', error);
+                // If there's an error, we'll use the default settings or cached settings
+            }
+        };
+        
+        fetchSettings();
+    }, []);
     
     const closeChatPopup = useCallback(() => {
         setShowChatPopup(false);
@@ -46,10 +91,15 @@ function ChatBot() {
             // Store the guest token in localStorage
             localStorage.setItem('guestToken', response.data.token);
             
+            // Use welcome message from settings if available
+            const welcomeMessage = settings.welcomeMessages && settings.welcomeMessages.length > 0 
+                ? settings.welcomeMessages[Math.floor(Math.random() * settings.welcomeMessages.length)]
+                : `Thanks ${userInfo.name}! How can I help you today?`;
+            
             // Add system message confirming form submission
             setMessages(prev => [...prev, {
                 type: 'bot',
-                content: `Thanks ${userInfo.name}! How can I help you today?`
+                content: welcomeMessage
             }]);
             
             setFormSubmitted(true);
@@ -60,7 +110,7 @@ function ChatBot() {
                 content: 'Sorry, there was an error processing your information. Please try again.'
             }]);
         }
-    }, [userInfo]);
+    }, [userInfo, settings.welcomeMessages]);
     
     const sendMessage = useCallback(async () => {
         if (!userMessage.trim()) return;
@@ -142,13 +192,17 @@ function ChatBot() {
             </button>
             
             {showChatWindow && (
-                <ChatWindow onClose={toggleChatWindow}>
-                    <div className="chat-messages">
+                <ChatWindow 
+                    onClose={toggleChatWindow}
+                    headerColor={settings.headerColor}
+                >
+                    <div className="chat-messages" style={{ backgroundColor: settings.backgroundColor }}>
                         {!formSubmitted ? (
                             <UserInfoForm 
                                 userInfo={userInfo}
                                 onChange={handleInputChange}
                                 onSubmit={handleSubmit}
+                                settings={settings.introductionForm}
                             />
                         ) : (
                             <MessageList messages={messages} />

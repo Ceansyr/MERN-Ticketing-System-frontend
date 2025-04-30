@@ -11,12 +11,16 @@ export const useTickets = (initialTab = 'all', initialQuery = '') => {
   const fetchTickets = useCallback(async () => {
     setLoading(true);
     try {
+      // By default, only show active tickets in the chat list
       let url = '/tickets?source=chat_widget';
       
       // Add filter based on active tab
       if (activeTab === 'resolved') {
         url += '&status=resolved,closed';
       } else if (activeTab === 'unresolved') {
+        url += '&status=backlog,staged,in_progress,in_review,blocked';
+      } else {
+        // For 'all' tab, still exclude resolved tickets by default
         url += '&status=backlog,staged,in_progress,in_review,blocked';
       }
       

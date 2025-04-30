@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Dashboard from './pages/Dashboard';
 import "./styles/App.css";
 import ContactCenter from './pages/ContactCenter';
+import ChatbotSettings from './pages/ChatbotSettings';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contact-center" element={<ContactCenter />} />
+          <Route path="/chatbot" element={<ChatbotSettings />} />
         </Routes>
       </Router>
   );

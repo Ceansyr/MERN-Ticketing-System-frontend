@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import Sidebar from '/src/components/layout/Sidebar';
 import '../styles/Dashboard.css';
 import '../styles/ContactCenter.css';
@@ -14,6 +15,11 @@ import ChatView from '../components/contact/ChatView';
 import GuestInfoPanel from '../components/contact/GuestInfoPanel';
 
 const ContactCenter = () => {
+  // Get query parameters from URL
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const ticketIdFromUrl = queryParams.get('ticketId');
+  
   // Use custom hooks
   const { 
     tickets, 
@@ -35,6 +41,13 @@ const ContactCenter = () => {
     assignTicket, 
     updateTicketStatus 
   } = useTicketDetails();
+  
+  // Load the ticket from URL parameter when component mounts
+  useEffect(() => {
+    if (ticketIdFromUrl) {
+      fetchTicketDetails(ticketIdFromUrl);
+    }
+  }, [ticketIdFromUrl, fetchTicketDetails]);
   
   // Event handlers
   const handleSearch = (e) => {

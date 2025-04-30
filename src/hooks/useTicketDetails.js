@@ -70,7 +70,7 @@ export const useTicketDetails = () => {
     if (!selectedTicket) return false;
     
     try {
-      await apiRequest(`/tickets/${selectedTicket._id}/status`, 'POST', {
+      await apiRequest(`/tickets/${selectedTicket._id}/status`, 'PUT', {
         status
       });
       
