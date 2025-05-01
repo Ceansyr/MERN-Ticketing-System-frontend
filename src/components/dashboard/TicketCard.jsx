@@ -2,7 +2,6 @@ import React from 'react';
 import { getTicketDuration } from '../../utils/dateUtils';
 
 const TicketCard = ({ ticket, onClick }) => {
-  // Format date to readable format
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });

@@ -47,7 +47,6 @@ export function useChatbot() {
         throw new Error('No authentication token found');
       }
       
-      // Modify the request payload to match what the backend expects
       await axios.post(`${API_URL}/chatbot/guest/ticket`, {
         title: `Support Request from ${contactInfo.name}`,
         description: message,

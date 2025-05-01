@@ -9,13 +9,15 @@ const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
+    isInvitation: false
   });
 
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
   };
   
   const handleSubmit = async (e) => {
@@ -60,6 +62,16 @@ const Login = () => {
                 onChange={handleChange}
                 required={true}
               />
+              <div className="checkbox-group">
+                <input
+                  type="checkbox"
+                  id="isInvitation"
+                  name="isInvitation"
+                  checked={formData.isInvitation}
+                  onChange={handleChange}
+                />
+                <label htmlFor="isInvitation">I have an invitation</label>
+              </div>
               <button type="submit" className="login-btn">
                 Log in
               </button>

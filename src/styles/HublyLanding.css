@@ -190,7 +190,6 @@
   border-top: 1px solid var(--border-color);
 }
 
-/* Chatbot Styles */
 .chat-widget-button {
   position: fixed;
   bottom: 20px;

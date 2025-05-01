@@ -1,14 +1,12 @@
-/* Contact Center Layout */
 .contact-center-layout {
   display: flex;
   flex: 1;
   height: 100vh;
   overflow: hidden;
-  margin-left: 85px; /* Add margin equal to sidebar width */
-  width: calc(100% - 85px); /* Adjust width to account for sidebar */
+  margin-left: 85px;
+  width: calc(100% - 85px);
 }
 
-/* Chats Section */
 .chats-section {
   width: 240px;
   border-right: 1px solid #e9ecef;
@@ -123,7 +121,6 @@
   text-overflow: ellipsis;
 }
 
-/* Chat View */
 .chat-view {
   flex: 1;
   display: flex;
@@ -272,20 +269,18 @@
   resize: none;
   height: 40px;
   font-size: 0.875rem;
-  overflow: hidden; /* Hide scrollbars */
-  -webkit-appearance: none; /* Remove default styling on some browsers */
-  appearance: none; /* Remove default styling */
+  overflow: hidden;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
-/* Hide scrollbar for Chrome, Safari and Opera */
 .reply-input::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
 .reply-input {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .send-icon {
@@ -312,7 +307,6 @@
   font-size: 1rem;
 }
 
-/* Guest Info Panel */
 .guest-info-panel {
   width: 300px;
   border-left: 1px solid #e9ecef;
@@ -425,7 +419,7 @@
 }
 
 .status-options {
-  display: none; /* Hide the old buttons */
+  display: none;
 }
 
 .no-ticket-selected {
@@ -438,6 +432,7 @@
   padding: 2rem;
   text-align: center;
 }
+
 .team-members-dropdown select {
   width: 100%;
   padding: 0.5rem;
@@ -481,7 +476,6 @@
   text-align: center;
 }
 
-/* Add this to your existing CSS */
 .status-message {
   padding: 10px 16px;
   margin: 0 16px;

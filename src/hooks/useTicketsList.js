@@ -8,21 +8,17 @@ export const useTicketsList = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Build URL with filters based on current state
   const buildTicketsUrl = useCallback(() => {
     let url = '/tickets';
     
-    // Add filter based on active tab
     if (activeTab === 'resolved') {
       url += '?status=resolved,closed';
     } else if (activeTab === 'unresolved') {
       url += '?status=backlog,staged,in_progress,in_review,blocked';
     } else {
-      // For 'all' tab, explicitly request all statuses
       url += '?status=backlog,staged,in_progress,in_review,blocked,resolved,closed';
     }
     
-    // Add search query if present
     if (searchQuery) {
       const separator = url.includes('?') ? '&' : '?';
       url += `${separator}query=${encodeURIComponent(searchQuery)}`;
@@ -31,7 +27,6 @@ export const useTicketsList = () => {
     return url;
   }, [activeTab, searchQuery]);
   
-  // Fetch tickets with proper error handling
   const fetchTickets = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -48,12 +43,10 @@ export const useTicketsList = () => {
     }
   }, [buildTicketsUrl]);
   
-  // Load tickets when dependencies change
   useEffect(() => {
     fetchTickets();
   }, [fetchTickets]);
 
-  // Event handlers
   const handleSearch = useCallback((e) => {
     setSearchQuery(e.target.value);
   }, []);

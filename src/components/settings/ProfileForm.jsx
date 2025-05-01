@@ -76,7 +76,7 @@ function ProfileForm({
       </div>
       
       <button type="submit" className="settings-save-btn">
-        Save Changes
+        Save
       </button>
     </form>
   );

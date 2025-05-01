@@ -4,23 +4,19 @@ import Sidebar from '/src/components/layout/Sidebar';
 import '../styles/Dashboard.css';
 import '../styles/ContactCenter.css';
 
-// Custom hooks
 import { useTickets } from '../hooks/useTickets';
 import { useTeamMembers } from '../hooks/useTeamMembers';
 import { useTicketDetails } from '../hooks/useTicketDetails';
 
-// Components
 import ChatsList from '../components/contact/ChatsList';
 import ChatView from '../components/contact/ChatView';
 import GuestInfoPanel from '../components/contact/GuestInfoPanel';
 
 const ContactCenter = () => {
-  // Get query parameters from URL
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const ticketIdFromUrl = queryParams.get('ticketId');
   
-  // Use custom hooks
   const { 
     tickets, 
     loading, 
@@ -42,14 +38,12 @@ const ContactCenter = () => {
     updateTicketStatus 
   } = useTicketDetails();
   
-  // Load the ticket from URL parameter when component mounts
   useEffect(() => {
     if (ticketIdFromUrl) {
       fetchTicketDetails(ticketIdFromUrl);
     }
   }, [ticketIdFromUrl, fetchTicketDetails]);
   
-  // Event handlers
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
   };

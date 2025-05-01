@@ -61,7 +61,7 @@ const Signup = () => {
     try {
       const data = await register(formData);
       storeToken(data.token);
-      navigate('/username-preference');
+      navigate('/login');
     } catch (err) {
       setError(err.message || 'An error occurred'); 
     }

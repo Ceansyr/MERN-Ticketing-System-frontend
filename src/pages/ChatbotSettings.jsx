@@ -21,17 +21,14 @@ const ChatbotSettings = () => {
     saveSettings
   } = useChatbotSettings();
 
-  // Handler for timer changes
   const handleTimerChange = (unit, value) => {
     updateNestedSetting('missedChatTimer', unit, parseInt(value, 10) || 0);
   };
 
-  // Handler for form field toggles
   const handleFormFieldToggle = (field, value) => {
     updateNestedSetting('introductionForm', field, value);
   };
 
-  // Handler for button text change
   const handleButtonTextChange = (value) => {
     updateNestedSetting('introductionForm', 'buttonText', value);
   };

@@ -3,8 +3,8 @@
   padding: 2rem;
   background-color: #f8f9fa;
   overflow-y: auto;
-  margin-left: 85px; /* Add margin equal to sidebar width */
-  width: calc(100% - 85px); /* Adjust width to account for sidebar */
+  margin-left: 85px;
+  width: calc(100% - 85px);
 }
 
 .settings-header {
@@ -318,7 +318,6 @@ input:checked + .toggle-label:before {
   border-color: #244779;
 }
 
-/* Renamed classes to avoid conflicts */
 .chatbot-preview-container {
   background-color: white;
   border-radius: 8px;

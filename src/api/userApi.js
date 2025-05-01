@@ -6,7 +6,7 @@ export async function getCurrentUser() {
     throw new Error("No authentication token found");
   }
 
-  const response = await fetch(`${API_URL}/user/me`, {
+  const response = await fetch(`${API_URL}/auth/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

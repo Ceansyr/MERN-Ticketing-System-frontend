@@ -11,13 +11,10 @@ export const useTicketDetails = () => {
     
     setLoading(true);
     try {
-      // Fetch ticket data
       const ticketData = await apiRequest(`/tickets/${ticketId}`);
       
-      // Fetch chat messages for this ticket
       const messages = await apiRequest(`/tickets/${ticketId}/messages`);
       
-      // Combine ticket data with messages
       setSelectedTicket({
         ...ticketData,
         messages: messages || []
@@ -38,7 +35,6 @@ export const useTicketDetails = () => {
         message
       });
       
-      // Refresh ticket details to show new message
       await fetchTicketDetails(selectedTicket._id);
       return true;
     } catch (err) {
@@ -56,7 +52,6 @@ export const useTicketDetails = () => {
         assigneeId
       });
       
-      // Refresh ticket details
       await fetchTicketDetails(selectedTicket._id);
       return true;
     } catch (err) {
@@ -74,7 +69,6 @@ export const useTicketDetails = () => {
         status
       });
       
-      // Refresh ticket details
       await fetchTicketDetails(selectedTicket._id);
       return true;
     } catch (err) {

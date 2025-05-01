@@ -19,8 +19,13 @@ export const apiRequest = async (url, method = 'GET', body = null) => {
     options.body = JSON.stringify(body);
   }
 
+  const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  const apiUrl = baseUrl.endsWith('/') && url.startsWith('/') 
+    ? `${baseUrl}${url.substring(1)}` 
+    : `${baseUrl}${url}`;
+
   try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}${url}`, options);
+    const response = await fetch(apiUrl, options);
 
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));

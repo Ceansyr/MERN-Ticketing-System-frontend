@@ -14,11 +14,9 @@ export const useReplyMessage = (ticket, onSuccess) => {
     setIsSending(true);
     
     try {
-      // Use the callback from the parent component instead of direct API call
       const success = await onSuccess(replyMessage);
       
       if (success) {
-        // Clear the input field after successful send
         setReplyMessage('');
       }
     } catch (error) {

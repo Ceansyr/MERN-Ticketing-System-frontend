@@ -7,7 +7,10 @@ import Dashboard from './pages/Dashboard';
 import "./styles/App.css";
 import ContactCenter from './pages/ContactCenter';
 import ChatbotSettings from './pages/ChatbotSettings';
-
+import Team from './pages/Team';
+import Settings from './pages/Settings';
+import Analytics from './pages/Analytics';
+import DummyPage from "./pages/DummyPage";
 
 function App() {
   return (
@@ -19,6 +22,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/contact-center" element={<ContactCenter />} />
           <Route path="/chatbot" element={<ChatbotSettings />} />
+          <Route path="/teams" element={<Team />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/analytics" element={<Analytics />} />
+          <Route path="/dummy" element={<DummyPage />} />
         </Routes>
       </Router>
   );

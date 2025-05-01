@@ -21,13 +21,12 @@ const GuestInfoPanel = ({
   const handleStatusChange = async (e) => {
     const newStatus = e.target.value;
     
-    // Show confirmation if status is being set to resolved
     if (newStatus === 'resolved' && ticket.status !== 'resolved') {
       if (window.confirm('Are you sure you want to mark this ticket as resolved? It will be removed from the active chats list.')) {
         const success = await onUpdateStatus(newStatus);
         if (success) {
           setStatusChangeMessage('Ticket marked as resolved and removed from active chats.');
-          setTimeout(() => setStatusChangeMessage(''), 3000); // Clear message after 3 seconds
+          setTimeout(() => setStatusChangeMessage(''), 3000); 
         }
       }
     } else {

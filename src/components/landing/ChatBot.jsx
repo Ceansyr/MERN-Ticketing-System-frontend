@@ -38,26 +38,21 @@ function ChatBot() {
         }
     });
     
-    // Fetch chatbot settings on component mount
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                // Try to get settings from localStorage first for faster loading
                 const cachedSettings = localStorage.getItem('chatbotSettings');
                 if (cachedSettings) {
                     setSettings(JSON.parse(cachedSettings));
                 }
                 
-                // Then fetch the latest settings from the server
                 const response = await axios.get('http://localhost:5000/api/chatbot/settings/public');
                 if (response.data) {
                     setSettings(response.data);
-                    // Cache the settings in localStorage
                     localStorage.setItem('chatbotSettings', JSON.stringify(response.data));
                 }
             } catch (error) {
                 console.error('Error fetching chatbot settings:', error);
-                // If there's an error, we'll use the default settings or cached settings
             }
         };
         
@@ -85,18 +80,14 @@ function ChatBot() {
         e.preventDefault();
         
         try {
-            // Create a guest user or get temporary token
             const response = await axios.post('http://localhost:5000/api/chatbot/guest', userInfo);
             
-            // Store the guest token in localStorage
             localStorage.setItem('guestToken', response.data.token);
             
-            // Use welcome message from settings if available
             const welcomeMessage = settings.welcomeMessages && settings.welcomeMessages.length > 0 
                 ? settings.welcomeMessages[Math.floor(Math.random() * settings.welcomeMessages.length)]
                 : `Thanks ${userInfo.name}! How can I help you today?`;
             
-            // Add system message confirming form submission
             setMessages(prev => [...prev, {
                 type: 'bot',
                 content: welcomeMessage
@@ -115,7 +106,6 @@ function ChatBot() {
     const sendMessage = useCallback(async () => {
         if (!userMessage.trim()) return;
         
-        // Add user message to chat
         const newMessage = {
             type: 'user',
             content: userMessage
@@ -123,19 +113,16 @@ function ChatBot() {
         
         setMessages(prev => [...prev, newMessage]);
         
-        // Clear input field
         const messageToSend = userMessage;
         setUserMessage('');
         
         try {
-            // Get token from localStorage
             const token = localStorage.getItem('guestToken');
             
             if (!token) {
                 throw new Error('No authentication token found');
             }
             
-            // Create ticket from chat message
             await axios.post('http://localhost:5000/api/chatbot/guest/ticket', {
                 title: `Support Request from ${userInfo.name}`,
                 description: messageToSend,
@@ -150,7 +137,6 @@ function ChatBot() {
                 }
             });
             
-            // Add system response
             setMessages(prev => [...prev, {
                 type: 'bot',
                 content: 'Thank you for your message! We have created a support ticket and our team will get back to you soon.'
@@ -178,7 +164,6 @@ function ChatBot() {
     
     return (
         <>
-            {/* Chatbot Widget */}
             {showChatPopup && (
                 <ChatPopup onClose={closeChatPopup} />
             )}

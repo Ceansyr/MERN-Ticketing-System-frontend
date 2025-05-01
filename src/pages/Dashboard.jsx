@@ -21,12 +21,10 @@ const Dashboard = () => {
   
   const navigate = useNavigate();
   
-  // Navigate to contact center with the ticket ID
   const openTicket = useCallback((ticketId) => {
     navigate(`/contact-center?ticketId=${ticketId}`);
   }, [navigate]);
   
-  // Render content based on loading/error state
   const renderTicketsList = () => {
     if (loading) {
       return <div className="loading-message">Loading tickets...</div>;

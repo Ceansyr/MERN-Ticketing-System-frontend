@@ -1,4 +1,3 @@
-// Format date to readable format
 export const formatDate = (dateString) => {
   if (!dateString) return '';
   const date = new Date(dateString);

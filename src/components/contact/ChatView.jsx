@@ -16,11 +16,9 @@ const ChatView = ({ ticket, onSendReply }) => {
     setIsSending(true);
     
     try {
-      // Use the callback from the parent component
       const success = await onSendReply(replyMessage);
       
       if (success) {
-        // Clear the input field after successful send
         setReplyMessage('');
       }
     } catch (error) {
