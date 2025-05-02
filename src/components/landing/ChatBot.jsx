@@ -7,6 +7,8 @@ import MessageList from "./chatbot/MessageList";
 import MessageInput from "./chatbot/MessageInput";
 
 function ChatBot() {
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+    
     const [showChatPopup, setShowChatPopup] = useState(true);
     const [showChatWindow, setShowChatWindow] = useState(false);
     const [userInfo, setUserInfo] = useState({
@@ -46,7 +48,7 @@ function ChatBot() {
                     setSettings(JSON.parse(cachedSettings));
                 }
                 
-                const response = await axios.get('http://localhost:5000/api/chatbot/settings/public');
+                const response = await axios.get(`${API_URL}/chatbot/settings/public`);
                 if (response.data) {
                     setSettings(response.data);
                     localStorage.setItem('chatbotSettings', JSON.stringify(response.data));
@@ -57,7 +59,7 @@ function ChatBot() {
         };
         
         fetchSettings();
-    }, []);
+    }, [API_URL]);
     
     const closeChatPopup = useCallback(() => {
         setShowChatPopup(false);
@@ -80,7 +82,7 @@ function ChatBot() {
         e.preventDefault();
         
         try {
-            const response = await axios.post('http://localhost:5000/api/chatbot/guest', userInfo);
+            const response = await axios.post(`${API_URL}/chatbot/guest`, userInfo);
             
             localStorage.setItem('guestToken', response.data.token);
             
@@ -101,7 +103,7 @@ function ChatBot() {
                 content: 'Sorry, there was an error processing your information. Please try again.'
             }]);
         }
-    }, [userInfo, settings.welcomeMessages]);
+    }, [userInfo, settings.welcomeMessages, API_URL]);
     
     const sendMessage = useCallback(async () => {
         if (!userMessage.trim()) return;
@@ -123,7 +125,7 @@ function ChatBot() {
                 throw new Error('No authentication token found');
             }
             
-            await axios.post('http://localhost:5000/api/chatbot/guest/ticket', {
+            await axios.post(`${API_URL}/chatbot/guest/ticket`, {
                 title: `Support Request from ${userInfo.name}`,
                 description: messageToSend,
                 contactInfo: {
@@ -150,7 +152,7 @@ function ChatBot() {
                 content: 'Sorry, there was an error processing your message. Please try again.'
             }]);
         }
-    }, [userMessage, userInfo]);
+    }, [userMessage, userInfo, API_URL]);
     
     const handleMessageChange = useCallback((e) => {
         setUserMessage(e.target.value);
