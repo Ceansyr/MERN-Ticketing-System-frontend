@@ -15,10 +15,9 @@ This repository contains the **frontend** for a comprehensive ticketing system b
    - [Frontend Setup](#frontend-setup)
 7. [Environment Variables](#environment-variables)
 8. [Running the Application](#running-the-application)
-9. [Testing](#testing)
-10. [Code Quality & Best Practices](#code-quality--best-practices)
-11. [Contributing](#contributing)
-12. [License](#license)
+9. [Code Quality & Best Practices](#code-quality--best-practices)
+10. [Contributing](#contributing)
+11. [License](#license)
 
 ## Project Overview
 
