@@ -82,7 +82,12 @@ function ChatBot() {
         e.preventDefault();
         
         try {
-            const response = await axios.post(`${API_URL}/chatbot/guest`, userInfo);
+            const response = await axios.post(`${API_URL}/chatbot/guest`, userInfo, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            });
             
             localStorage.setItem('guestToken', response.data.token);
             
@@ -98,6 +103,12 @@ function ChatBot() {
             setFormSubmitted(true);
         } catch (error) {
             console.error('Error submitting user info:', error);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+                console.error('Response headers:', error.response.headers);
+            }
+            
             setMessages(prev => [...prev, {
                 type: 'bot',
                 content: 'Sorry, there was an error processing your information. Please try again.'
