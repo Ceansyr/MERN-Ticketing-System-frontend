@@ -12,7 +12,7 @@ export const useEditMemberForm = (member, onUpdateMember, onSuccess) => {
   useEffect(() => {
     if (member) {
       setFormData({
-        id: member.id,
+        id: member.id || member._id,
         firstName: member.firstName,
         lastName: member.lastName,
         email: member.email,
