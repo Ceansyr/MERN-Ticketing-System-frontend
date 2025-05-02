@@ -2,6 +2,12 @@
 
 This repository contains the **frontend** for a comprehensive ticketing system built with the MERN (MongoDB, Express.js, React, Node.js) stack. It provides customer support and team collaboration features including ticket management, analytics, chat integration, and more.
 
+To access backend, please refer to:
+
+```
+https://github.com/Ceansyr/MERN-Ticketing-System-backend
+```
+
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
