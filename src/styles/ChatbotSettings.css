@@ -253,12 +253,58 @@ input:checked + .toggle-label:before {
   transform: translateX(20px);
 }
 
+.chatbot-settings-container::-webkit-scrollbar,
+.chatbot-preview-body::-webkit-scrollbar,
+.text-input::-webkit-scrollbar {
+  display: none;
+}
+
+.chatbot-settings-container,
+.chatbot-preview-body,
+.text-input {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;
+}
+
+.textarea-container {
+  position: relative;
+  width: 100%;
+}
+
 .text-input {
   width: 100%;
   padding: 0.75rem;
+  padding-right: 2.5rem;
   border: 1px solid #e2e8f0;
   border-radius: 4px;
   font-size: 0.875rem;
+  resize: none; 
+}
+
+.textarea-edit-icon {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #718096;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.textarea-edit-icon:hover {
+  opacity: 1;
+}
+
+.textarea-edit-icon::before {
+  content: "✏️";
+  font-size: 1rem;
 }
 
 .timer-container {
@@ -318,18 +364,35 @@ input:checked + .toggle-label:before {
   border-color: #244779;
 }
 
+.preview-section {
+  margin-bottom: 2rem;
+}
+
+.preview-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
 .chatbot-preview-container {
   background-color: white;
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .chatbot-preview-container.mobile {
   max-width: 375px;
   margin: 0 auto;
+}
+
+.preview-section-tabs {
+  display: none;
 }
 
 .chatbot-preview {
@@ -465,6 +528,38 @@ input:checked + .toggle-label:before {
   margin: 0;
   font-size: 14px;
   line-height: 1.5;
+}
+
+.preview-section-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.preview-section-tab {
+  padding: 0.5rem 1rem;
+  background: none;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+
+.preview-section-tab.active {
+  background-color: #244779;
+  color: white;
+  border-color: #244779;
+}
+
+.chat-popup-preview {
+  width: 300px;
+  margin: 0 auto;
+}
+
+.setting-help {
+  font-size: 0.75rem;
+  color: #718096;
+  margin-top: 0.5rem;
 }
 
 @media (max-width: 1200px) {

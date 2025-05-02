@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Sidebar from '../components/layout/Sidebar';
 import ColorPicker from '../components/chatbot/ColorPicker';
 import WelcomeMessages from '../components/chatbot/WelcomeMessages';
+import InitialMessageSettings from '../components/chatbot/InitialMessageSettings';
 import IntroductionFormSettings from '../components/chatbot/IntroductionFormSettings';
 import TimerSettings from '../components/chatbot/TimerSettings';
 import PreviewPanel from '../components/chatbot/PreviewPanel';
@@ -61,6 +62,8 @@ const ChatbotSettings = () => {
           
           <div className="settings-content">
             <div className="settings-panel">
+              
+              
               <div className="settings-section">
                 <h2>Appearance</h2>
                 
@@ -90,6 +93,11 @@ const ChatbotSettings = () => {
                 formSettings={settings.introductionForm}
                 onToggle={handleFormFieldToggle}
                 onButtonTextChange={handleButtonTextChange}
+              />
+
+              <InitialMessageSettings 
+                initialMessage={settings.initialMessage}
+                onUpdate={updateSetting}
               />
               
               <TimerSettings 

@@ -5,6 +5,7 @@ export const useChatbotSettings = () => {
   const [settings, setSettings] = useState({
     headerColor: '#334758',
     backgroundColor: '#FFFFFF',
+    initialMessage: '👋 Want to chat about Hubly? I\'m an chatbot here to help you find your way.',
     welcomeMessages: [
       'How can I help you?',
       'Ask me anything!'

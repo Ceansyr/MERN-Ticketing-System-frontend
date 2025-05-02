@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import '../../styles/Sidebar.css';
 import navigate from '../../utils/navigation';
+import { removeToken } from '../../api/authApi';
 
 const Sidebar = () => {
   const location = useLocation();
   const currentPath = location.pathname;
+  const [showLogoutPopup, setShowLogoutPopup] = useState(false);
 
   const navItems = [
     { path: '/dashboard', icon: 'dashboard', label: 'Dashboard' },
@@ -18,6 +20,19 @@ const Sidebar = () => {
 
   const handleNavigation = (path) => {
     navigate(path);
+  };
+
+  const handleLogout = () => {
+    setShowLogoutPopup(true);
+  };
+
+  const confirmLogout = () => {
+    removeToken();
+    navigate('/login');
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutPopup(false);
   };
 
   return (
@@ -43,9 +58,22 @@ const Sidebar = () => {
       
       <div className="sidebar-footer">
         <div className="user-profile">
-          <div className="user-avatar"></div>
+          <div className="user-avatar" onClick={handleLogout}></div>
         </div>
       </div>
+
+      {showLogoutPopup && (
+        <div className="logout-popup-overlay">
+          <div className="logout-popup">
+            <h3>Logout</h3>
+            <p>Are you sure you want to logout?</p>
+            <div className="logout-buttons">
+              <button className="cancel-button" onClick={cancelLogout}>Cancel</button>
+              <button className="confirm-button" onClick={confirmLogout}>Logout</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

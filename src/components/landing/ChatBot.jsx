@@ -165,7 +165,10 @@ function ChatBot() {
     return (
         <>
             {showChatPopup && (
-                <ChatPopup onClose={closeChatPopup} />
+                <ChatPopup 
+                    onClose={closeChatPopup} 
+                    initialMessage={settings.initialMessage}
+                />
             )}
             
             <button 

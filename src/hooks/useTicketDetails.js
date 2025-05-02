@@ -48,7 +48,7 @@ export const useTicketDetails = () => {
     if (!selectedTicket) return false;
     
     try {
-      await apiRequest(`/tickets/${selectedTicket._id}/assign`, 'POST', {
+      await apiRequest(`/tickets/${selectedTicket._id}/assign`, 'PUT', {
         assigneeId
       });
       
