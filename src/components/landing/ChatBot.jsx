@@ -8,6 +8,7 @@ import MessageInput from "./chatbot/MessageInput";
 
 function ChatBot() {
     const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+    console.log('API_URL:', API_URL); 
     
     const [showChatPopup, setShowChatPopup] = useState(true);
     const [showChatWindow, setShowChatWindow] = useState(false);
@@ -40,35 +41,57 @@ function ChatBot() {
         }
     });
     
-    useEffect(() => {
-        const fetchSettings = async () => {
-            try {
-                const cachedSettings = localStorage.getItem('chatbotSettings');
-                if (cachedSettings) {
-                    setSettings(JSON.parse(cachedSettings));
-                }
-                
-                const response = await axios.get(`${API_URL}/chatbot/settings/public`);
-                if (response.data) {
-                    setSettings(response.data);
-                    localStorage.setItem('chatbotSettings', JSON.stringify(response.data));
-                }
-            } catch (error) {
-                console.error('Error fetching chatbot settings:', error);
+    const fetchSettings = useCallback(async () => {
+        try {
+            const response = await axios.get(`${API_URL}/chatbot/settings/public?t=${Date.now()}`);
+            if (response.data) {
+                console.log('Fetched settings:', response.data);
+                setSettings(response.data);
+                localStorage.setItem('chatbotSettings', JSON.stringify(response.data));
+                return;
             }
-        };
-        
-        fetchSettings();
+        } catch (error) {
+            console.error('Error fetching chatbot settings:', error);
+            const cachedSettings = localStorage.getItem('chatbotSettings');
+            if (cachedSettings) {
+                try {
+                    const parsed = JSON.parse(cachedSettings);
+                    console.log('Using cached settings:', parsed);
+                    setSettings(parsed);
+                } catch (parseError) {
+                    console.error('Error parsing cached settings:', parseError);
+                    localStorage.removeItem('chatbotSettings');
+                }
+            }
+        }
     }, [API_URL]);
     
+    const clearCachedSettings = useCallback(() => {
+        localStorage.removeItem('chatbotSettings');
+        console.log('Cleared cached settings');
+        fetchSettings();
+    }, [fetchSettings]); 
+
+    useEffect(() => {
+        fetchSettings();
+
+        const refreshInterval = setInterval(fetchSettings, 2 * 60 * 1000);
+
+        return () => clearInterval(refreshInterval);
+    }, [fetchSettings]); 
+
     const closeChatPopup = useCallback(() => {
         setShowChatPopup(false);
     }, []);
-    
+
     const toggleChatWindow = useCallback(() => {
         setShowChatWindow(prevState => !prevState);
         setShowChatPopup(false);
-    }, []);
+        
+        if (!showChatWindow) {
+             clearCachedSettings();
+        }
+    }, [showChatWindow, clearCachedSettings]);
     
     const handleInputChange = useCallback((e) => {
         const { name, value } = e.target;
@@ -77,10 +100,10 @@ function ChatBot() {
             [name]: value
         }));
     }, []);
-    
+
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
-        
+
         try {
             const response = await axios.post(`${API_URL}/chatbot/guest`, userInfo, {
                 headers: {
@@ -115,10 +138,10 @@ function ChatBot() {
             }]);
         }
     }, [userInfo, settings.welcomeMessages, API_URL]);
-    
+
     const sendMessage = useCallback(async () => {
         if (!userMessage.trim()) return;
-        
+
         const newMessage = {
             type: 'user',
             content: userMessage
@@ -168,38 +191,39 @@ function ChatBot() {
     const handleMessageChange = useCallback((e) => {
         setUserMessage(e.target.value);
     }, []);
-    
+
     const handleKeyPress = useCallback((e) => {
         if (e.key === 'Enter') {
             sendMessage();
         }
     }, [sendMessage]);
-    
+
+
     return (
         <>
             {showChatPopup && (
-                <ChatPopup 
-                    onClose={closeChatPopup} 
+                <ChatPopup
+                    onClose={closeChatPopup}
                     initialMessage={settings.initialMessage}
                 />
             )}
-            
-            <button 
-                className="chat-widget-button" 
+
+            <button
+                className="chat-widget-button"
                 onClick={toggleChatWindow}
                 aria-label="Open chat"
             >
                 <div className="chat-icon"></div>
             </button>
-            
+
             {showChatWindow && (
-                <ChatWindow 
+                <ChatWindow
                     onClose={toggleChatWindow}
                     headerColor={settings.headerColor}
                 >
                     <div className="chat-messages" style={{ backgroundColor: settings.backgroundColor }}>
                         {!formSubmitted ? (
-                            <UserInfoForm 
+                            <UserInfoForm
                                 userInfo={userInfo}
                                 onChange={handleInputChange}
                                 onSubmit={handleSubmit}
@@ -209,9 +233,9 @@ function ChatBot() {
                             <MessageList messages={messages} />
                         )}
                     </div>
-                    
+
                     {formSubmitted && (
-                        <MessageInput 
+                        <MessageInput
                             value={userMessage}
                             onChange={handleMessageChange}
                             onKeyPress={handleKeyPress}
